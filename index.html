@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Receitas Refinadas</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        /* Estilos gerais */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+        }
+
+        /* Cabeçalho */
+        header {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        /* Carrossel */
+        .carousel {
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .carousel-item img {
+            height: 500px;
+            object-fit: cover;
+        }
+
+        .carousel-caption {
+            background-color: rgba(0, 0, 0, 0.7);
+            border-radius: 5px;
+            padding: 20px;
+            right: 10%;
+            left: 10%;
+            bottom: 20%;
+        }
+
+        .carousel-caption h5 {
+            font-size: 1.8rem;
+            font-weight: bold;
+        }
+
+        /* Cards */
+        .card {
+            transition: transform 0.3s, box-shadow 0.3s;
+            margin-bottom: 20px;
+            border: none;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+        }
+
+        .card-img-top {
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .card-body {
+            padding: 1.5rem;
+        }
+
+        .badge {
+            font-size: 0.8rem;
+            font-weight: normal;
+        }
+
+        /* Seções */
+        section {
+            padding: 4rem 0;
+        }
+
+        /* Informações do aluno */
+        .rounded-circle {
+            border: 5px solid #f8f9fa;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Rodapé */
+        footer {
+            background-color: #343a40 !important;
+        }
+
+        footer h5 {
+            color: #fff;
+            margin-bottom: 1rem;
+        }
+
+        footer p {
+            color: rgba(255, 255, 255, 0.7);
+            margin-bottom: 0.5rem;
+        }
+
+        /* Página de detalhes */
+        #imagem-principal {
+            max-height: 400px;
+            width: 100%;
+            object-fit: cover;
+        }
+
+        #titulo-item {
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+            color: #2c3e50;
+        }
+
+        /* Responsividade */
+        @media (max-width: 992px) {
+            .carousel-item img {
+                height: 400px;
+            }
+            
+            .carousel-caption {
+                bottom: 10%;
+            }
+            
+            .carousel-caption h5 {
+                font-size: 1.5rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .carousel-item img {
+                height: 300px;
+            }
+            
+            .carousel-caption {
+                padding: 10px;
+                bottom: 5%;
+            }
+            
+            .carousel-caption h5 {
+                font-size: 1.2rem;
+            }
+            
+            .carousel-caption p {
+                display: none;
+            }
+            
+            .card-img-top {
+                height: 150px;
+            }
+            
+            section {
+                padding: 2rem 0;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .carousel-item img {
+                height: 250px;
+            }
+            
+            .carousel-caption {
+                display: none;
+            }
+            
+            #titulo-item {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Página Principal -->
+    <div id="app">
+        <!-- Cabeçalho -->
+        <header class="bg-light py-3 shadow-sm">
+            <div class="container">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div class="logo">
+                        <img src="./assets/img/logo.png" alt="Portal de receitas" height="70">
+                    </div>
+                    <h1 class="h4 mb-0 text-primary">Receitas em Destaque</h1>
+                </div>
+            </div>
+        </header>
+
+        <!-- Seção 1: Carrossel de Destaques -->
+        <section class="py-5 bg-white">
+            <div class="container">
+                <div id="carouselDestaques" class="carousel slide" data-bs-ride="carousel">
+                    <div class="carousel-inner" id="destaques">
+                        <!-- Itens serão carregados dinamicamente pelo JavaScript -->
+                    </div>
+                    <button class="carousel-control-prev" type="button" data-bs-target="#carouselDestaques" data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Anterior</span>
+                    </button>
+                    <button class="carousel-control-next" type="button" data-bs-target="#carouselDestaques" data-bs-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Próximo</span>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Seção 2: Todas as Receitas -->
+        <section class="py-5 bg-light">
+            <div class="container">
+                <h2 class="mb-4 text-center">Todas as receitas</h2>
+                <div class="row" id="todos-itens">
+                    <!-- Cards serão carregados dinamicamente pelo JavaScript -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Seção 3: Informações do Aluno -->
+        <section class="py-5 bg-white">
+            <div class="container">
+                <h2 class="mb-4 text-center">Sobre mim</h2>
+                <div class="card mx-auto" style="max-width: 500px;">
+                    <div class="card-body text-center">
+                        <img src="./assets/img/cc.jpg" class="rounded-circle mb-3" alt="Foto do aluno">
+                        <h5 class="card-title">Eduardo de Souza Silva</h5>
+                        <p class="card-text">Faço Ciência da computação na PUC-MINAS, estou estudando linguagens como: HTML, CSS, JavaScript, C e PHP.</p>
+                        <p class="card-text">Matrícula: 879983</p>
+                        <p class="card-text">Disciplina: Desenvolvimento Web</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Rodapé -->
+        <footer class="bg-dark text-white py-4">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-6">
+                        <h5>Sobre</h5>
+                        <p>Portal de receitas desenvolvido como trabalho prático para a disciplina de Desenvolvimento Web.</p>
+                    </div>
+                    <div class="col-md-6 text-md-end">
+                        <p>&copy; 2025 SS. Todos os direitos reservados.(PUC-MINAS)</p>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <!-- Página de Detalhes (inicialmente oculta) -->
+    <div id="detalhes-page" style="display: none;">
+        <!-- Cabeçalho -->
+        <header class="bg-light py-3 shadow-sm">
+            <div class="container">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div class="logo">
+                        <a href="#" onclick="showHomePage()">
+                            <img src="./assets/img/logo.png" alt="Portal de Receitas" height="60">
+                        </a>
+                    </div>
+                    <h1 class="h4 mb-0 text-primary">Informações Gerais</h1>
+                </div>
+            </div>
+        </header>
+
+        <!-- Seção 1: Detalhes da receita -->
+        <section class="py-5 bg-white" id="detalhes-item">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-6">
+                        <img id="imagem-principal" src="" alt="Imagem da receita class="img-fluid rounded mb-4 shadow">
+                    </div>
+                    <div class="col-lg-6">
+                        <h2 id="titulo-item" class="mb-3"></h2>
+                        <div id="info-adicionais" class="mb-4">
+                            <!-- Informações adicionais serão carregadas dinamicamente -->
+                        </div>
+                        <a href="#" onclick="showHomePage()" class="btn btn-outline-primary">Voltar para a página inicial</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Seção 2: Fotos da receita -->
+        <section class="py-5 bg-light">
+            <div class="container">
+                <h2 class="mb-4 text-center">Fotos relacionadas</h2>
+                <div class="row" id="fotos-item">
+                    <!-- Fotos serão carregadas dinamicamente -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Rodapé -->
+        <footer class="bg-dark text-white py-4">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-6">
+                        <h5>Sobre</h5>
+                        <p>Portal de receitas desenvolvido como trabalho prático para a disciplina de Desenvolvimento Web.</p>
+                    </div>
+                    <div class="col-md-6 text-md-end">
+                        <p>&copy; 2025 SS. Todos os direitos reservados.(PUC-MINAS).</p>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <!-- Bootstrap JS e Popper.js -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- JavaScript do Aplicativo -->
+    <script>
+        const dados = {
+            "noticias": [
+                {
+                    "id": 1,
+                    "titulo": "Lasanha Clássica",
+                    "descricao": "Uma ótima pedida para um almoço de domingo, fácil e rápida de fazer.",
+                    "conteudo": "<p>Em uma panela grande, coloque o óleo e leve ao fogo alto para aquecer.</p><p>Junte a cebola e refogue por 2 minutos.</p><p>Acrescente a carne, aos poucos, e frite por 10 minutos, ou até o líquido secar.</p><p>Adicione o tomate e refogue por 3 minutos, ou até que comece a desmanchar.</p><p>Junte a polpa de tomate, a água, o Tempero SAZÓN® e o sal, e deixe cozinhar em fogo baixo, com a panela semitampada, por 5 minutos, ou até encorpar levemente.</p><p>Retire do fogo.</p><p>Em um refratário retangular grande (23 x 35 cm), faça camadas com o molho, a massa, o presunto e a muçarela, intercalando e repetindo até finalizar com o molho e a muçarela.</p><p>Cubra com papel-alumínio e leve ao forno médio (180 graus), preaquecido, por 20 minutos, ou até que a massa fique macia.</p><p>Remova o papel-alumínio e volte ao forno por mais 5 minutos, ou até dourar o queijo.</p><p>Retire do forno e sirva em seguida.</p>",
+                    "categoria": "Massas",
+                    "autor": "Joana Ribeiro",
+                    "destaque": true,
+                    "data": "2025-03-30",
+                    "imagem_principal": "./assets/img/lasanha.webp",
+                    "imagens_complementares": [
+                        { 
+                            "id": 1,
+                            "src": "./assets/img/nhoque.webp",
+                            "descricao": "Melhorer Nhoque de mandioca caseiro"
+                        },
+                        { 
+                            "id": 2,
+                            "src": "./assets/img/macarrao.webp",
+                            "descricao": "massas com molhos especiais"
+                        },
+                        { 
+                            "id": 3,
+                            "src": "./assets/img/coxinha.webp",
+                            "descricao": "Coxinha clássica"
+                        }
+                    ]
+                },
+                {
+                    "id": 2,
+                    "titulo": "Brownie",
+                    "descricao": "Ninguem é de ferro, um Brownie de ves em quando sempre cai bem.",
+                    "conteudo": "<p>Em uma tigela refratária média, coloque a manteiga e o chocolate e leve ao micro-ondas em potência média (5), por 2 minutos, ou até derreterem.</p><p>Retire do micro-ondas e misture até ficar uniforme.</p><p>Reserve.</p><p>Em uma tigela grande, coloque o açúcar mascavo, o ovo, o SATIS!® e o chocolate derretido, aos poucos, mexendo sempre, até incorporar todos os ingredientes.</p><p>Junte a farinha de trigo, o cacau e o fermento, e misture delicadamente, até formar uma massa homogênea.</p><p>Disponha em uma assadeira retangular média (30 x 20 cm), untada e enfarinhada e leve ao forno médio (180 graus), preaquecido, por 20 minutos, ou até secar a superfície.</p><p>Sirva morno ou em temperatura ambiente.</p>",
+                    "categoria": "Doces",
+                    "autor": "Carlos Mendes",
+                    "destaque": true,
+                    "data": "2025-03-28",
+                    "imagem_principal": "./assets/img/brownie.webp",
+                    "imagens_complementares": [
+                        { 
+                            "id": 1,
+                            "src": "./assets/img/bolo.webp",
+                            "descricao": "Melhores bolos doces"
+                        },
+                        { 
+                            "id": 2,
+                            "src": "./assets/img/torta.webp",
+                            "descricao": "Doces fitness"
+                        }
+                    ]
+                },
+                {
+                    "id": 3,
+                    "titulo": "Bebidas",
+                    "descricao": "Margaritas são elegantes e gostosos, e o melhor de tudo, simples de fazer.",
+                    "conteudo": "<p>Em uma jarra de vidro, coloque a água e o MID ZERO™, e misture.</p><p>Junte a tequila e mexa e reserve.</p><p>Distribua em 6 taças ou copos, acrescente os cubos de gelo e sirva em seguida.</p>",
+                    "categoria": "Bebida",
+                    "autor": "Ana Clara Silva",
+                    "destaque": false,
+                    "data": "2025-03-27",
+                    "imagem_principal": "./assets/img/margarita.webp",
+                    "imagens_complementares": [
+                        { 
+                            "id": 1,
+                            "src": "./assets/img/cha.webp",
+                            "descricao": "Chá bom para a saúde"
+                        },
+                        { 
+                            "id": 2,
+                            "src": "./assets/img/refresco.webp",
+                            "descricao": "Melhor amigo dos dias quentes, o refresco"
+                        }
+                    ]
+                }
+            ]
+        };
+
+        // Função para mostrar a página inicial
+        function showHomePage() {
+            document.getElementById('app').style.display = 'block';
+            document.getElementById('detalhes-page').style.display = 'none';
+            return false;
+        }
+
+        // Função para mostrar a página de detalhes
+        function showDetailsPage(id) {
+            document.getElementById('app').style.display = 'none';
+            document.getElementById('detalhes-page').style.display = 'block';
+            carregarDetalhesItem(id);
+            return false;
+        }
+
+        // Função para carregar os destaques no carrossel
+        function carregarDestaques() {
+            const destaques = dados.noticias.filter(noticia => noticia.destaque);
+            const carouselInner = document.querySelector('.carousel-inner');
+            
+            if (destaques.length === 0) {
+                carouselInner.innerHTML = '<div class="carousel-item active"><p>Nenhum destaque disponível no momento.</p></div>';
+                return;
+            }
+            
+            destaques.forEach((noticia, index) => {
+                const carouselItem = document.createElement('div');
+                carouselItem.className = `carousel-item ${index === 0 ? 'active' : ''}`;
+                
+                carouselItem.innerHTML = `
+                    <img src="${noticia.imagem_principal}" class="d-block w-100" alt="${noticia.titulo}">
+                    <div class="carousel-caption d-none d-md-block">
+                        <h5>${noticia.titulo}</h5>
+                        <p>${noticia.descricao}</p>
+                        <a href="#" onclick="showDetailsPage(${noticia.id})" class="btn btn-primary">Ver detalhes</a>
+                    </div>
+                `;
+                
+                carouselInner.appendChild(carouselItem);
+            });
+        }
+
+        // Função para carregar todos os itens em cards
+        function carregarTodosItens() {
+            const container = document.querySelector('#todos-itens');
+            
+            dados.noticias.forEach(noticia => {
+                const col = document.createElement('div');
+                col.className = 'col-md-4 mb-4';
+                
+                col.innerHTML = `
+                    <div class="card h-100">
+                        <img src="${noticia.imagem_principal}" class="card-img-top" alt="${noticia.titulo}">
+                        <div class="card-body">
+                            <h5 class="card-title">${noticia.titulo}</h5>
+                            <p class="card-text">${noticia.descricao}</p>
+                            <span class="badge bg-secondary">${noticia.categoria}</span>
+                        </div>
+                        <div class="card-footer bg-transparent">
+                            <a href="#" onclick="showDetailsPage(${noticia.id})" class="btn btn-outline-primary">Ler mais</a>
+                        </div>
+                    </div>
+                `;
+                
+                container.appendChild(col);
+            });
+        }
+
+        // Função para carregar os detalhes de uma notícia específica
+        function carregarDetalhesItem(id) {
+            const noticia = dados.noticias.find(n => n.id === parseInt(id));
+            
+            if (!noticia) {
+                showHomePage();
+                return;
+            }
+            
+            // Preencher informações principais
+            document.getElementById('titulo-item').textContent = noticia.titulo;
+            document.getElementById('imagem-principal').src = noticia.imagem_principal;
+            document.getElementById('imagem-principal').alt = noticia.titulo;
+            
+            // Preencher informações adicionais
+            const infoAdicionais = document.getElementById('info-adicionais');
+            infoAdicionais.innerHTML = `
+                <p><strong>Publicado em:</strong> ${new Date(noticia.data).toLocaleDateString('pt-BR')}</p>
+                <p><strong>Autor:</strong> ${noticia.autor}</p>
+                <p><strong>Categoria:</strong> ${noticia.categoria}</p>
+                <div class="mt-4">
+                    <h4>Matéria completa:</h4>
+                    <p>${noticia.conteudo}</p>
+                </div>
+            `;
+            
+            // Preencher fotos complementares
+            const fotosContainer = document.getElementById('fotos-item');
+            fotosContainer.innerHTML = ''; // Limpar fotos anteriores
+            
+            noticia.imagens_complementares.forEach(foto => {
+                const col = document.createElement('div');
+                col.className = 'col-md-4 mb-4';
+                
+                col.innerHTML = `
+                    <div class="card h-100">
+                        <img src="${foto.src}" class="card-img-top" alt="${foto.descricao}">
+                        <div class="card-body">
+                            <p class="card-text">${foto.descricao}</p>
+                        </div>
+                    </div>
+                `;
+                
+                fotosContainer.appendChild(col);
+            });
+        }
+
+        // Inicializar o aplicativo quando a página carregar
+        document.addEventListener('DOMContentLoaded', function() {
+            carregarDestaques();
+            carregarTodosItens();
+            
+            // Verificar se há um ID na URL (simulando query string)
+            const urlParams = new URLSearchParams(window.location.search);
+            const id = urlParams.get('id');
+            
+            if (id) {
+                showDetailsPage(id);
+            }
+        });
+    </script>
+</body>
+</html>
